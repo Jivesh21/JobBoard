@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">💼</div>
+      <span class="brand-name">Job Tracker</span>
+    </div>
+    <div class="stats" id="statsBar"></div>
+  </header>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Search company or role…"/>
+    </div>
+    <select id="filterStatus">
+      <option value="">All statuses</option>
+      <option value="Wishlist">Wishlist</option>
+      <option value="Applied">Applied</option>
+      <option value="Interview">Interview</option>
+      <option value="Offer">Offer</option>
+      <option value="Rejected">Rejected</option>
+    </select>
+    <select id="sortBy">
+      <option value="date-desc">Newest first</option>
+      <option value="date-asc">Oldest first</option>
+      <option value="company">Company A–Z</option>
+      <option value="priority">Priority</option>
+    </select>
+    <div class="view-toggle">
+      <button class="vtbtn active" id="btnBoard" onclick="setView('board')">
+        <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="7" height="18" rx="1"/>
+          <rect x="14" y="3" width="7" height="10" rx="1"/>
+          <rect x="14" y="17" width="7" height="4" rx="1"/>
+        </svg>
+        Board
+      </button>
+      <button class="vtbtn" id="btnTable" onclick="setView('table')">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M3 9h18M3 15h18M9 3v18"/>
+        </svg>
+        Table
+      </button>
+    </div>
+    <button class="btn btn-primary" onclick="openAdd()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+      Add Job
+    </button>
+  </div>
+
+  <!-- Board View -->
+  <div class="board" id="boardView">
+    <!-- Columns rendered by JS -->
+  </div>
+
+  <!-- Table View -->
+  <div class="table-wrap" id="tableView" style="display:none">
+    <table id="jobTable">
+      <thead>
+        <tr>
+          <th>Company</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Date Applied</th>
+          <th>Priority</th>
+          <th>Location</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div id="tableEmpty" style="display:none; text-align:center; padding:40px; color:var(--muted)">
+      No jobs match your filters.
+    </div>
+  </div>
+
+</div>
+
+<!-- Add / Edit Modal -->
+<div class="overlay" id="formOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" id="formTitle">Add Job</span>
+      <button class="close-btn" onclick="closeForm()">×</button>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Company *</label>
+        <input id="fCompany" type="text" placeholder="e.g. Google"/>
+      </div>
+      <div class="field">
+        <label>Role *</label>
+        <input id="fRole" type="text" placeholder="e.g. Frontend Engineer"/>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Status</label>
+        <select id="fStatus">
+          <option>Wishlist</option>
+          <option>Applied</option>
+          <option>Interview</option>
+          <option>Offer</option>
+          <option>Rejected</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Priority</label>
+        <select id="fPriority">
+          <option value="high">High</option>
+          <option value="medium" selected>Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Date Applied</label>
+        <input id="fDate" type="date"/>
+      </div>
+      <div class="field">
+        <label>Location</label>
+        <input id="fLocation" type="text" placeholder="Remote / City"/>
+      </div>
+    </div>
+    <div class="field">
+      <label>Job URL</label>
+      <input id="fUrl" type="text" placeholder="https://…"/>
+    </div>
+    <div class="field">
+      <label>Notes</label>
+      <textarea id="fNotes" placeholder="Interview rounds, referral contact, salary range…"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeForm()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveJob()">Save Job</button>
+    </div>
+  </div>
+</div>
+
+<!-- View Modal -->
+<div class="overlay" id="viewOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span></span>
+      <button class="close-btn" onclick="closeView()">×</button>
+    </div>
+    <div id="viewContent"></div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="deleteBtn" onclick="deleteJob()">Delete</button>
+      <button class="btn btn-ghost" onclick="closeView()">Close</button>
+      <button class="btn btn-primary" onclick="editCurrent()">Edit</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<!-- JS loaded at the end so the DOM is ready -->
+<script src="app.js"></script>
+</body>
+</html>
