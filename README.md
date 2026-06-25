@@ -9,6 +9,9 @@ A clean, responsive web app to track all your job applications in one place — 
 ## 📸 Preview
  
 > A Kanban-style board to manage your job hunt visually — from Wishlist to Offer.
+> ## 📸 Preview
+
+![Job Board Dashboard](assets/dashboard.png)
  
 ---
  
