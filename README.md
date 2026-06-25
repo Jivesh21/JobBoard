@@ -1,4 +1,4 @@
-# 💼 Job Application Tracker
+# 💼 JobBoard
  
 A clean, responsive web app to track all your job applications in one place — built from scratch using pure HTML, CSS, and JavaScript.
  
