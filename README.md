@@ -2,7 +2,7 @@
  
 A clean, responsive web app to track all your job applications in one place — built from scratch using pure HTML, CSS, and JavaScript.
  
-🔗 **Live Demo:** [job-application-tracker-one-weld.vercel.app](https://job-application-tracker-one-weld.vercel.app)
+🔗 **Live Demo:** [job-application-tracker-one-weld.vercel.app](https://job-board-one-weld.vercel.app/)
  
 ---
  
