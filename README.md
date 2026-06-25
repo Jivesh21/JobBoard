@@ -95,7 +95,7 @@ That's it — no npm, no setup, no dependencies.
  
 **Jivesh**
 - GitHub: [@Jivesh21](https://github.com/Jivesh21)
-- Live Project: [job-application-tracker-one-weld.vercel.app](https://job-application-tracker-one-weld.vercel.app)
+- Live Project: [job-application-tracker-one-weld.vercel.app](https://job-board-one-weld.vercel.app/)
 ---
  
 ## 📄 License
