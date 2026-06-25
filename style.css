@@ -306,10 +306,104 @@ tr:hover td { background: var(--surface); }
 }
 .toast.show { transform: translateY(0); opacity: 1; }
 
-/* ── Responsive ───────────────────────────────── */
-@media (max-width: 640px) {
-  header, .toolbar { padding: 14px 16px; }
-  .board { padding: 14px 8px; }
-  .table-wrap { padding: 14px 8px; }
-  .column { flex: 0 0 220px; }
+/* ── Responsive / Mobile ──────────────────────── */
+@media (max-width: 768px) {
+
+  /* Header */
+  header { padding: 12px 16px; gap: 10px; }
+  .brand-name { font-size: 17px; }
+  .stats { gap: 6px; }
+  .stat-pill { font-size: 11px; padding: 4px 10px; }
+
+  /* Toolbar — stack vertically */
+  .toolbar {
+    padding: 10px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  .search-wrap { min-width: unset; width: 100%; }
+  .search-wrap input { width: 100%; font-size: 14px; padding: 10px 12px 10px 34px; }
+
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  /* View toggle + Add Job button side by side */
+  .toolbar-bottom {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .view-toggle { flex: 1; }
+  .vtbtn { flex: 1; justify-content: center; padding: 9px 8px; font-size: 12px; }
+  .btn-primary { width: 100%; justify-content: center; padding: 10px 16px; font-size: 14px; }
+
+  /* Board */
+  .board {
+    padding: 12px 10px;
+    gap: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+  .column {
+    flex: 0 0 85vw;
+    max-width: 320px;
+    max-height: unset;
+    scroll-snap-align: start;
+    margin-right: 0;
+  }
+  .col-head { padding: 12px 14px 10px; }
+  .cards { padding: 8px; gap: 8px; max-height: 60vh; }
+
+  /* Cards */
+  .card { padding: 12px; }
+  .card-company { font-size: 14px; }
+  .card-role { font-size: 12px; }
+
+  /* Table */
+  .table-wrap { padding: 12px 10px; overflow-x: auto; }
+  table { min-width: 560px; font-size: 12px; }
+  th, td { padding: 10px 10px; }
+
+  /* Modal */
+  .modal {
+    margin: 16px;
+    padding: 20px;
+    max-height: 85vh;
+    border-radius: 16px;
+  }
+  .modal-title { font-size: 18px; }
+
+  /* Stack field rows vertically on mobile */
+  .field-row { flex-direction: column; gap: 0; }
+  .field input, .field select, .field textarea {
+    font-size: 16px; /* prevents iOS zoom on focus */
+    padding: 10px 12px;
+  }
+
+  /* View modal grid */
+  .view-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .view-company { font-size: 20px; }
+
+  /* Toast */
+  .toast {
+    bottom: 16px; right: 16px; left: 16px;
+    font-size: 13px;
+  }
+
+  /* Modal footer buttons */
+  .modal-footer { flex-wrap: wrap; }
+  .modal-footer .btn { flex: 1; justify-content: center; min-width: 80px; }
+}
+
+/* Very small screens (iPhone SE etc) */
+@media (max-width: 380px) {
+  .hero-name { font-size: 13px; }
+  .column { flex: 0 0 92vw; }
+  .stat-pill { display: none; }
+  .stats .stat-pill:first-child { display: flex; } /* show only Total */
 }
