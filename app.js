@@ -59,7 +59,10 @@ function renderStats() {
   `;
 }
 
-/* ── Board ────────────────────────────────────────── */
+/* ── Drag & Drop State ────────── */
+let draggedId = null;
+
+/* ── Board ────────────── */
 const STATUSES = ['Wishlist', 'Applied', 'Interview', 'Offer', 'Rejected'];
 
 function renderBoard() {
@@ -84,6 +87,34 @@ function renderBoard() {
     board.appendChild(col);
 
     const cardsEl = col.querySelector(`#col-${status}`);
+
+    /* ── Drop zone events on each column ── */
+    cardsEl.addEventListener('dragover', e => {
+      e.preventDefault();
+      cardsEl.classList.add('drag-over');
+    });
+    cardsEl.addEventListener('dragleave', e => {
+      // only remove if leaving the column entirely
+      if (!cardsEl.contains(e.relatedTarget)) {
+        cardsEl.classList.remove('drag-over');
+      }
+    });
+    cardsEl.addEventListener('drop', e => {
+      e.preventDefault();
+      cardsEl.classList.remove('drag-over');
+      if (!draggedId) return;
+
+      // update job status in data
+      const job = jobs.find(j => j.id === draggedId);
+      if (job && job.status !== status) {
+        job.status = status;
+        save();
+        render();
+        showToast(`✓ Moved to ${status}`);
+      }
+      draggedId = null;
+    });
+
     if (!cards.length) {
       cardsEl.innerHTML = `
         <div class="empty-col">
@@ -91,7 +122,7 @@ function renderBoard() {
             <rect x="3" y="3" width="18" height="18" rx="2"/>
             <path d="M9 12h6M9 8h6M9 16h3"/>
           </svg>
-          No jobs here yet
+          Drop cards here
         </div>`;
     } else {
       cards.forEach(j => cardsEl.appendChild(makeCard(j)));
@@ -100,10 +131,73 @@ function renderBoard() {
 }
 
 function makeCard(j) {
-  const el      = document.createElement('div');
-  el.className  = 'card';
-  el.onclick    = () => openView(j.id);
-  el.innerHTML  = `
+  const el          = document.createElement('div');
+  el.className      = 'card';
+  el.draggable      = true;
+  el.dataset.id     = j.id;
+
+  /* ── Drag events on each card ── */
+  el.addEventListener('dragstart', e => {
+    draggedId = j.id;
+    el.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+    // small delay so the ghost image renders before style change
+    setTimeout(() => el.classList.add('drag-ghost'), 0);
+  });
+  el.addEventListener('dragend', () => {
+    draggedId = null;
+    el.classList.remove('dragging', 'drag-ghost');
+    // clean up any leftover drag-over highlights
+    document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+  });
+
+  /* ── Touch drag support (mobile) ── */
+  let touchStartX, touchStartY;
+  el.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    draggedId   = j.id;
+    el.classList.add('dragging');
+  }, { passive: true });
+
+  el.addEventListener('touchmove', e => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    // highlight the column we're hovering over
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    document.querySelectorAll('.cards').forEach(c => c.classList.remove('drag-over'));
+    const col = target?.closest('.cards');
+    if (col) col.classList.add('drag-over');
+  }, { passive: false });
+
+  el.addEventListener('touchend', e => {
+    el.classList.remove('dragging');
+    const touch  = e.changedTouches[0];
+    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+    const col    = target?.closest('.cards');
+    document.querySelectorAll('.cards').forEach(c => c.classList.remove('drag-over'));
+
+    if (col && draggedId) {
+      // figure out which status this column belongs to
+      const newStatus = col.id.replace('col-', '');
+      const job = jobs.find(j => j.id === draggedId);
+      if (job && job.status !== newStatus && STATUSES.includes(newStatus)) {
+        job.status = newStatus;
+        save();
+        render();
+        showToast(`✓ Moved to ${newStatus}`);
+      }
+    }
+    draggedId = null;
+  }, { passive: true });
+
+  /* click to view (only if not dragging) */
+  el.addEventListener('click', () => {
+    if (!draggedId) openView(j.id);
+  });
+
+  el.innerHTML = `
+    <div class="drag-handle" title="Drag to move">⠿</div>
     <div class="card-company">${esc(j.company)}</div>
     <div class="card-role">${esc(j.role)}</div>
     <div class="card-meta">
@@ -149,7 +243,7 @@ function renderTable() {
   });
 }
 
-/* ── Render Dispatcher ────────────────────────────── */
+/* ── Render Dispatcher ──── */
 function render() {
   renderStats();
   if (currentView === 'board') renderBoard();
@@ -169,7 +263,7 @@ document.getElementById('searchInput').addEventListener('input', render);
 document.getElementById('filterStatus').addEventListener('change', render);
 document.getElementById('sortBy').addEventListener('change', render);
 
-/* ── Add / Edit Modal ─────────────────────────────── */
+/* ── Add / Edit Modal── */
 function openAdd() {
   editingId = null;
   document.getElementById('formTitle').textContent = 'Add Job';
@@ -296,7 +390,7 @@ function deleteJob() {
   showToast('🗑 Job deleted.');
 }
 
-/* ── Click outside to close modals ───────────────── */
+/* ── Click outside to close modals  */
 document.getElementById('formOverlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeForm();
 });
@@ -304,7 +398,7 @@ document.getElementById('viewOverlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeView();
 });
 
-/* ── Helpers ──────────────────────────────────────── */
+/* ── Helpers ──────── */
 function esc(s) {
   return String(s || '')
     .replace(/&/g, '&amp;')
