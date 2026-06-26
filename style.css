@@ -306,6 +306,30 @@ tr:hover td { background: var(--surface); }
 }
 .toast.show { transform: translateY(0); opacity: 1; }
 
+/* ── Drag & Drop ──────────────────────────────────── */
+.drag-handle {
+  font-size: 14px;
+  color: var(--border);
+  margin-bottom: 6px;
+  cursor: grab;
+  user-select: none;
+  letter-spacing: 2px;
+  transition: color .2s;
+}
+.card:hover .drag-handle { color: var(--muted); }
+.drag-handle:active { cursor: grabbing; }
+
+.card.dragging { opacity: .5; cursor: grabbing; }
+.card.drag-ghost { opacity: .3; transform: scale(.97); }
+
+.cards.drag-over {
+  background: var(--accent-dim);
+  border-radius: var(--radius);
+  outline: 2px dashed var(--accent);
+  outline-offset: -4px;
+  transition: background .15s;
+}
+
 /* ── Responsive / Mobile ──────────────────────── */
 @media (max-width: 768px) {
 
