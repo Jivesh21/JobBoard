@@ -70,6 +70,7 @@ That's it — no npm, no setup, no dependencies.
 4. Use **Edit** to update or **Delete** to remove
 5. Switch between **Board** and **Table** view anytime
 6. Use the **search bar** and **filters** to find specific jobs
+7. use Drag and drop feature to chnage the card  position in Kanban Board
 ---
  
 ## 🗺️ Roadmap
