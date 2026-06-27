@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="app">
-
+ 
   <!-- Header -->
   <header>
     <div class="brand">
@@ -18,7 +18,7 @@
     </div>
     <div class="stats" id="statsBar"></div>
   </header>
-
+ 
   <!-- Toolbar -->
   <div class="toolbar">
     <div class="search-wrap">
@@ -42,36 +42,38 @@
       <option value="company">Company A–Z</option>
       <option value="priority">Priority</option>
     </select>
-    <div class="view-toggle">
-      <button class="vtbtn active" id="btnBoard" onclick="setView('board')">
-        <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24">
-          <rect x="3" y="3" width="7" height="18" rx="1"/>
-          <rect x="14" y="3" width="7" height="10" rx="1"/>
-          <rect x="14" y="17" width="7" height="4" rx="1"/>
+    <div class="toolbar-bottom">
+      <div class="view-toggle">
+        <button class="vtbtn active" id="btnBoard" onclick="setView('board')">
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="7" height="18" rx="1"/>
+            <rect x="14" y="3" width="7" height="10" rx="1"/>
+            <rect x="14" y="17" width="7" height="4" rx="1"/>
+          </svg>
+          Board
+        </button>
+        <button class="vtbtn" id="btnTable" onclick="setView('table')">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <path d="M3 9h18M3 15h18M9 3v18"/>
+          </svg>
+          Table
+        </button>
+      </div>
+      <button class="btn btn-primary" onclick="openAdd()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <path d="M12 5v14M5 12h14"/>
         </svg>
-        Board
-      </button>
-      <button class="vtbtn" id="btnTable" onclick="setView('table')">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <rect x="3" y="3" width="18" height="18" rx="2"/>
-          <path d="M3 9h18M3 15h18M9 3v18"/>
-        </svg>
-        Table
+        Add Job
       </button>
     </div>
-    <button class="btn btn-primary" onclick="openAdd()">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-        <path d="M12 5v14M5 12h14"/>
-      </svg>
-      Add Job
-    </button>
   </div>
-
+ 
   <!-- Board View -->
   <div class="board" id="boardView">
     <!-- Columns rendered by JS -->
   </div>
-
+ 
   <!-- Table View -->
   <div class="table-wrap" id="tableView" style="display:none">
     <table id="jobTable">
@@ -83,6 +85,7 @@
           <th>Date Applied</th>
           <th>Priority</th>
           <th>Location</th>
+          <th>Salary</th>
           <th></th>
         </tr>
       </thead>
@@ -92,9 +95,9 @@
       No jobs match your filters.
     </div>
   </div>
-
+ 
 </div>
-
+ 
 <!-- Add / Edit Modal -->
 <div class="overlay" id="formOverlay">
   <div class="modal">
@@ -142,9 +145,15 @@
         <input id="fLocation" type="text" placeholder="Remote / City"/>
       </div>
     </div>
-    <div class="field">
-      <label>Job URL</label>
-      <input id="fUrl" type="text" placeholder="https://…"/>
+    <div class="field-row">
+      <div class="field">
+        <label>Salary</label>
+        <input id="fSalary" type="text" placeholder="e.g. ₹12 LPA / $80k"/>
+      </div>
+      <div class="field">
+        <label>Job URL</label>
+        <input id="fUrl" type="text" placeholder="https://…"/>
+      </div>
     </div>
     <div class="field">
       <label>Notes</label>
@@ -156,7 +165,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- View Modal -->
 <div class="overlay" id="viewOverlay">
   <div class="modal">
@@ -172,11 +181,12 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- Toast notification -->
 <div class="toast" id="toast"></div>
-
+ 
 <!-- JS loaded at the end so the DOM is ready -->
 <script src="app.js"></script>
 </body>
 </html>
+ 
