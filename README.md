@@ -1,111 +1,161 @@
-# 💼 JobBoard
- 
-A clean, responsive web app to track all your job applications in one place — built from scratch using pure HTML, CSS, and JavaScript.
- 
-🔗 **Live Demo:** [job-application-tracker-one-weld.vercel.app](https://job-board-one-weld.vercel.app/)
- 
----
- 
-## 📸 Preview
- 
-> A Kanban-style board to manage your job hunt visually — from Wishlist to Offer.
-> ## 📸 Preview
+# 💼 Job Board – Job Application Tracker
 
-![Job Board Dashboard](assets/dashboard.png)
- 
+A modern and responsive Job Application Tracker built with **HTML, CSS, and JavaScript**.
+
+This application helps users organize and track job applications through different hiring stages using a Kanban board and a table view.
+
 ---
- 
+
+## 🚀 Live Demo
+
+🔗 https://your-vercel-link.vercel.app
+
+---
+
+## 📸 Preview
+
+> Add screenshots here
+
+- Board View
+- Table View
+- Add Job Modal
+- Mobile View
+
+---
+
 ## ✨ Features
- 
-- 📋 **Kanban Board View** — visualize jobs across 5 stages
-- 📊 **Table View** — see all jobs in a clean list
-- 🔍 **Search & Filter** — find jobs by company, role, or status
-- 🔃 **Sort** — by date, company name, or priority
-- ➕ **Add / Edit / Delete** jobs easily
-- 💾 **Auto Save** — data saved in browser using localStorage
-- 📱 **Responsive** — works on mobile and desktop
-- 🎨 **Clean Dark UI** — easy on the eyes
+
+- 📌 Kanban Board View
+- 📋 Table View
+- ➕ Add New Job
+- ✏️ Edit Existing Job
+- 🗑 Delete Job
+- 👀 View Job Details
+- 🔍 Search by Company or Role
+- 🎯 Filter by Status
+- 📅 Sort by Date, Company, and Priority
+- 🎨 Priority Badges
+- 💰 Salary Tracking
+- 📍 Location Tracking
+- 🔗 Job URL Support
+- 📝 Notes Section
+- 📊 Live Statistics Bar
+- 🖱 Drag & Drop (Desktop)
+- 📱 Touch Drag & Drop (Mobile)
+- 🔔 Toast Notifications
+- 💾 Data Persistence using Local Storage
+- 📱 Fully Responsive Design
+
 ---
- 
-## 🛠️ Built With
- 
-- **HTML5** — structure and markup
-- **CSS3** — styling, flexbox, CSS variables, animations
-- **JavaScript (Vanilla)** — logic, DOM manipulation, localStorage
-> No frameworks. No libraries. Just pure fundamentals.
- 
+
+## 🛠 Tech Stack
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- Local Storage API
+
 ---
- 
-## 📁 Project Structure
- 
+
+## 📂 Project Structure
+
 ```
-job-application-tracker/
-├── index.html     → structure & layout
-├── style.css      → all styles & theme
-├── app.js         → all logic & functionality
-└── README.md      → project documentation
+Job-Board/
+│
+├── index.html
+├── style.css
+├── app.js
+└── README.md
 ```
- 
+
 ---
- 
-## 🚀 Getting Started
- 
-No installation needed! Just:
- 
-1. Clone the repo:
-```bash
-git clone https://github.com/Jivesh21/job-application-tracker.git
+
+## 📌 Core Functionalities
+
+### Job Management
+
+- Add new job applications
+- Edit existing applications
+- Delete applications
+- View complete job details
+
+### Organization
+
+- Track application status
+- Manage priority levels
+- Store salary information
+- Save job location
+- Save application date
+- Store application links
+- Add interview notes
+
+### Productivity
+
+- Search instantly
+- Filter by status
+- Sort applications
+- Drag & Drop between columns
+- Switch between Board and Table view
+
+---
+
+## 📊 Application Flow
+
 ```
- 
-2. Open `index.html` in your browser
-That's it — no npm, no setup, no dependencies.
- 
+User Action
+      │
+      ▼
+Event Listener
+      │
+      ▼
+JavaScript Function
+      │
+      ▼
+Update jobs Array
+      │
+      ▼
+Save to Local Storage
+      │
+      ▼
+Render Updated UI
+```
+
 ---
- 
-## 📌 How to Use
- 
-1. Click **Add Job** to log a new application
-2. Fill in company, role, status, priority, date, location and notes
-3. Click any card to view full details
-4. Use **Edit** to update or **Delete** to remove
-5. Switch between **Board** and **Table** view anytime
-6. Use the **search bar** and **filters** to find specific jobs
-7. use Drag and drop feature to chnage the card  position in Kanban Board
+
+## 🎯 What I Learned
+
+Through this project, I strengthened my understanding of:
+
+- DOM Manipulation
+- Event Listeners
+- CRUD Operations
+- JavaScript Arrays & Objects
+- Local Storage
+- Dynamic Rendering
+- Drag & Drop API
+- Touch Events
+- Responsive Design
+- Template Literals
+- Form Validation
+
 ---
- 
-## 🗺️ Roadmap
- 
-- [x] Kanban board view
-- [x] Table view
-- [x] Search and filter
-- [x] localStorage persistence
-- [ ] Salary field
-- [ ] Export to CSV
-- [ ] Dark / Light mode toggle
-- [ ] Deadline / follow-up date reminder
-- [ ] Application statistics chart
+
+## 🔮 Future Improvements
+
+- User Authentication
+- Backend API
+- Database Integration
+- Cloud Storage
+- Email Notifications
+- Interview Reminder System
+- Dashboard Analytics
+- Dark Mode
+- File Upload for Resume
+
 ---
- 
-## 📈 What I Learned
- 
-- Structuring a project with separate HTML, CSS, and JS files
-- DOM manipulation and dynamic rendering with JavaScript
-- Storing and retrieving data using localStorage
-- Building responsive layouts with CSS Flexbox
-- Writing clean, readable commit messages
----
- 
+
 ## 👨‍💻 Author
- 
-**Jivesh**
-- GitHub: [@Jivesh21](https://github.com/Jivesh21)
-- Live Project: [job-application-tracker-one-weld.vercel.app](https://job-board-one-weld.vercel.app/)
----
- 
-## 📄 License
- 
-This project is open source and available under the [MIT License](LICENSE).
- 
----
- 
-⭐ If you found this helpful, consider giving it a star on GitHub!
+
+**Jivesh Sharma**
+
+GitHub: https://github.com/Jivesh21
