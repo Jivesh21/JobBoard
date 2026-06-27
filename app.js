@@ -1,4 +1,3 @@
-/* ── Data ─────────────────────────────────────────── */
 const STATUS_COLORS = {
   Wishlist:  '#7b82a0',
   Applied:   '#6c8bff',
@@ -6,7 +5,7 @@ const STATUS_COLORS = {
   Offer:     '#4ecb8a',
   Rejected:  '#ff6b6b',
 };
-
+ 
 const SAMPLE = [
   { id: uid(), company:'Google',    role:'Frontend Engineer', status:'Interview', priority:'high',   date:'2025-06-10', location:'Remote',    url:'', notes:'3 rounds done. Waiting on final decision.' },
   { id: uid(), company:'Stripe',    role:'Software Engineer', status:'Applied',   priority:'high',   date:'2025-06-14', location:'Bangalore', url:'', notes:'Applied via referral from Priya.' },
@@ -14,27 +13,27 @@ const SAMPLE = [
   { id: uid(), company:'Razorpay',  role:'SDE-2',             status:'Offer',     priority:'high',   date:'2025-06-01', location:'Bangalore', url:'', notes:'₹28 LPA offer. Decision due June 25.' },
   { id: uid(), company:'Meesho',    role:'Frontend Dev',      status:'Rejected',  priority:'medium', date:'2025-05-28', location:'Bangalore', url:'', notes:'Rejected after technical round.' },
 ];
-
+ 
 let jobs        = JSON.parse(localStorage.getItem('jt_jobs') || 'null') || SAMPLE;
 let editingId   = null;
 let viewingId   = null;
 let currentView = 'board';
-
+ 
 function save() { localStorage.setItem('jt_jobs', JSON.stringify(jobs)); }
 function uid()  { return '_' + Math.random().toString(36).slice(2, 9); }
-
+ 
 /* ── Filtering / Sorting ──────────────────────────── */
 function getFiltered() {
   const q    = document.getElementById('searchInput').value.toLowerCase();
   const st   = document.getElementById('filterStatus').value;
   const sort = document.getElementById('sortBy').value;
-
+ 
   let list = jobs.filter(j => {
     const matchQ  = !q || j.company.toLowerCase().includes(q) || j.role.toLowerCase().includes(q);
     const matchSt = !st || j.status === st;
     return matchQ && matchSt;
   });
-
+ 
   const pOrder = { high: 0, medium: 1, low: 2 };
   list.sort((a, b) => {
     if (sort === 'date-asc')  return (a.date || '') > (b.date || '') ? 1 : -1;
@@ -45,7 +44,7 @@ function getFiltered() {
   });
   return list;
 }
-
+ 
 /* ── Stats Bar ────────────────────────────────────── */
 function renderStats() {
   const bar        = document.getElementById('statsBar');
@@ -58,18 +57,18 @@ function renderStats() {
     <div class="stat-pill">Offers <strong>${offers}</strong></div>
   `;
 }
-
-/* ── Drag & Drop State ────────── */
+ 
+/* ── Drag & Drop State ────────────────────────────── */
 let draggedId = null;
-
-/* ── Board ────────────── */
+ 
+/* ── Board ────────────────────────────────────────── */
 const STATUSES = ['Wishlist', 'Applied', 'Interview', 'Offer', 'Rejected'];
-
+ 
 function renderBoard() {
   const board = document.getElementById('boardView');
   const list  = getFiltered();
   board.innerHTML = '';
-
+ 
   STATUSES.forEach(status => {
     const cards = list.filter(j => j.status === status);
     const col   = document.createElement('div');
@@ -85,9 +84,9 @@ function renderBoard() {
       <div class="cards" id="col-${status}"></div>
     `;
     board.appendChild(col);
-
+ 
     const cardsEl = col.querySelector(`#col-${status}`);
-
+ 
     /* ── Drop zone events on each column ── */
     cardsEl.addEventListener('dragover', e => {
       e.preventDefault();
@@ -103,7 +102,7 @@ function renderBoard() {
       e.preventDefault();
       cardsEl.classList.remove('drag-over');
       if (!draggedId) return;
-
+ 
       // update job status in data
       const job = jobs.find(j => j.id === draggedId);
       if (job && job.status !== status) {
@@ -114,7 +113,7 @@ function renderBoard() {
       }
       draggedId = null;
     });
-
+ 
     if (!cards.length) {
       cardsEl.innerHTML = `
         <div class="empty-col">
@@ -129,13 +128,13 @@ function renderBoard() {
     }
   });
 }
-
+ 
 function makeCard(j) {
   const el          = document.createElement('div');
   el.className      = 'card';
   el.draggable      = true;
   el.dataset.id     = j.id;
-
+ 
   /* ── Drag events on each card ── */
   el.addEventListener('dragstart', e => {
     draggedId = j.id;
@@ -150,7 +149,7 @@ function makeCard(j) {
     // clean up any leftover drag-over highlights
     document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
   });
-
+ 
   /* ── Touch drag support (mobile) ── */
   let touchStartX, touchStartY;
   el.addEventListener('touchstart', e => {
@@ -159,7 +158,7 @@ function makeCard(j) {
     draggedId   = j.id;
     el.classList.add('dragging');
   }, { passive: true });
-
+ 
   el.addEventListener('touchmove', e => {
     e.preventDefault();
     const touch = e.touches[0];
@@ -169,14 +168,14 @@ function makeCard(j) {
     const col = target?.closest('.cards');
     if (col) col.classList.add('drag-over');
   }, { passive: false });
-
+ 
   el.addEventListener('touchend', e => {
     el.classList.remove('dragging');
     const touch  = e.changedTouches[0];
     const target = document.elementFromPoint(touch.clientX, touch.clientY);
     const col    = target?.closest('.cards');
     document.querySelectorAll('.cards').forEach(c => c.classList.remove('drag-over'));
-
+ 
     if (col && draggedId) {
       // figure out which status this column belongs to
       const newStatus = col.id.replace('col-', '');
@@ -190,12 +189,12 @@ function makeCard(j) {
     }
     draggedId = null;
   }, { passive: true });
-
+ 
   /* click to view (only if not dragging) */
   el.addEventListener('click', () => {
     if (!draggedId) openView(j.id);
   });
-
+ 
   el.innerHTML = `
     <div class="drag-handle" title="Drag to move">⠿</div>
     <div class="card-company">${esc(j.company)}</div>
@@ -207,17 +206,17 @@ function makeCard(j) {
   `;
   return el;
 }
-
+ 
 /* ── Table ────────────────────────────────────────── */
 function renderTable() {
   const list  = getFiltered();
   const body  = document.getElementById('tableBody');
   const empty = document.getElementById('tableEmpty');
   body.innerHTML = '';
-
+ 
   if (!list.length) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
-
+ 
   list.forEach(j => {
     const tr      = document.createElement('tr');
     tr.style.cursor = 'pointer';
@@ -234,6 +233,7 @@ function renderTable() {
       <td>${j.date ? fmtDate(j.date) : '—'}</td>
       <td><span class="priority-badge p-${j.priority}">${j.priority}</span></td>
       <td>${esc(j.location || '—')}</td>
+      <td>${esc(j.salary || '—')}</td>
       <td>
         <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px"
           onclick="event.stopPropagation();openEdit('${j.id}')">Edit</button>
@@ -242,14 +242,14 @@ function renderTable() {
     body.appendChild(tr);
   });
 }
-
-/* ── Render Dispatcher ──── */
+ 
+/* ── Render Dispatcher ────────────────────────────── */
 function render() {
   renderStats();
   if (currentView === 'board') renderBoard();
   else renderTable();
 }
-
+ 
 function setView(v) {
   currentView = v;
   document.getElementById('boardView').style.display = v === 'board' ? 'flex' : 'none';
@@ -258,12 +258,12 @@ function setView(v) {
   document.getElementById('btnTable').classList.toggle('active', v === 'table');
   render();
 }
-
+ 
 document.getElementById('searchInput').addEventListener('input', render);
 document.getElementById('filterStatus').addEventListener('change', render);
 document.getElementById('sortBy').addEventListener('change', render);
-
-/* ── Add / Edit Modal── */
+ 
+/* ── Add / Edit Modal ─────────────────────────────── */
 function openAdd() {
   editingId = null;
   document.getElementById('formTitle').textContent = 'Add Job';
@@ -271,7 +271,7 @@ function openAdd() {
   document.getElementById('fDate').value = today();
   document.getElementById('formOverlay').classList.add('open');
 }
-
+ 
 function openEdit(id) {
   const j = jobs.find(j => j.id === id);
   if (!j) return;
@@ -283,21 +283,22 @@ function openEdit(id) {
   document.getElementById('fPriority').value        = j.priority;
   document.getElementById('fDate').value            = j.date || '';
   document.getElementById('fLocation').value        = j.location || '';
+  document.getElementById('fSalary').value          = j.salary || '';
   document.getElementById('fUrl').value             = j.url || '';
   document.getElementById('fNotes').value           = j.notes || '';
   closeView();
   document.getElementById('formOverlay').classList.add('open');
 }
-
+ 
 function closeForm() {
   document.getElementById('formOverlay').classList.remove('open');
 }
-
+ 
 function saveJob() {
   const company = document.getElementById('fCompany').value.trim();
   const role    = document.getElementById('fRole').value.trim();
   if (!company || !role) { showToast('⚠ Company and Role are required.'); return; }
-
+ 
   const data = {
     company,
     role,
@@ -305,10 +306,11 @@ function saveJob() {
     priority: document.getElementById('fPriority').value,
     date:     document.getElementById('fDate').value,
     location: document.getElementById('fLocation').value.trim(),
+    salary:   document.getElementById('fSalary').value.trim(),
     url:      document.getElementById('fUrl').value.trim(),
     notes:    document.getElementById('fNotes').value.trim(),
   };
-
+ 
   if (editingId) {
     const idx = jobs.findIndex(j => j.id === editingId);
     jobs[idx] = { ...jobs[idx], ...data };
@@ -317,23 +319,23 @@ function saveJob() {
     jobs.unshift({ id: uid(), ...data });
     showToast('✓ Job added.');
   }
-
+ 
   save(); closeForm(); render();
 }
-
+ 
 function clearForm() {
-  ['fCompany', 'fRole', 'fDate', 'fLocation', 'fUrl', 'fNotes']
+  ['fCompany', 'fRole', 'fDate', 'fLocation', 'fSalary', 'fUrl', 'fNotes']
     .forEach(id => document.getElementById(id).value = '');
   document.getElementById('fStatus').value   = 'Applied';
   document.getElementById('fPriority').value = 'medium';
 }
-
+ 
 /* ── View Modal ───────────────────────────────────── */
 function openView(id) {
   const j = jobs.find(j => j.id === id);
   if (!j) return;
   viewingId = id;
-
+ 
   const c = document.getElementById('viewContent');
   c.innerHTML = `
     <div class="view-company">${esc(j.company)}</div>
@@ -358,6 +360,10 @@ function openView(id) {
         <label>Location</label>
         <div class="val">${esc(j.location || '—')}</div>
       </div>
+      <div class="view-item">
+        <label>Salary</label>
+        <div class="val">${esc(j.salary || '—')}</div>
+      </div>
     </div>
     ${j.url ? `
       <div class="field" style="margin-bottom:16px">
@@ -373,15 +379,15 @@ function openView(id) {
   `;
   document.getElementById('viewOverlay').classList.add('open');
 }
-
+ 
 function closeView() {
   document.getElementById('viewOverlay').classList.remove('open');
 }
-
+ 
 function editCurrent() {
   if (viewingId) openEdit(viewingId);
 }
-
+ 
 function deleteJob() {
   if (!viewingId) return;
   if (!confirm('Delete this job?')) return;
@@ -389,16 +395,16 @@ function deleteJob() {
   save(); closeView(); render();
   showToast('🗑 Job deleted.');
 }
-
-/* ── Click outside to close modals  */
+ 
+/* ── Click outside to close modals ───────────────── */
 document.getElementById('formOverlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeForm();
 });
 document.getElementById('viewOverlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeView();
 });
-
-/* ── Helpers ──────── */
+ 
+/* ── Helpers ──────────────────────────────────────── */
 function esc(s) {
   return String(s || '')
     .replace(/&/g, '&amp;')
@@ -406,18 +412,18 @@ function esc(s) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 }
-
+ 
 function fmtDate(d) {
   if (!d) return '—';
   const [y, m, day] = d.split('-');
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   return `${day} ${months[+m - 1]} ${y}`;
 }
-
+ 
 function today() {
   return new Date().toISOString().slice(0, 10);
 }
-
+ 
 let toastTimer;
 function showToast(msg) {
   const el = document.getElementById('toast');
@@ -426,6 +432,6 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
 }
-
+ 
 /* ── Init ─────────────────────────────────────────── */
 render();
