@@ -1,6 +1,7 @@
 /* ── Reset & Base ─────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── Dark Mode (default) ──────────────────────── */
 :root {
   --bg:        #0f1117;
   --surface:   #181c26;
@@ -15,12 +16,56 @@
   --radius:    10px;
 }
 
+/* ── Light Mode ───────────────────────────────── */
+body.light {
+  --bg:        #f0f4ff;
+  --surface:   #ffffff;
+  --border:    #dde3f0;
+  --accent:    #4f6ef7;
+  --accent-dim:#4f6ef722;
+  --text:      #1a1f36;
+  --muted:     #6b7280;
+  --danger:    #e53e3e;
+  --success:   #38a169;
+  --warn:      #d97706;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   min-height: 100vh;
+}
+
+/* ── Theme Toggle Button ──────────────────────── */
+.theme-toggle {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.theme-icon { font-size: 15px; }
+
+/* smooth transition when switching themes */
+body {
+  transition: background .3s, color .3s;
+}
+.card, .column, .modal, header, .toolbar {
+  transition: background .3s, border-color .3s;
 }
 
 /* ── Layout ───────────────────────────────────── */
