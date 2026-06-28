@@ -25,26 +25,22 @@ This application helps users organize and track job applications through differe
 
 ## ✨ Features
 
-- 📌 Kanban Board View
-- 📋 Table View
-- ➕ Add New Job
-- ✏️ Edit Existing Job
-- 🗑 Delete Job
-- 👀 View Job Details
-- 🔍 Search by Company or Role
-- 🎯 Filter by Status
-- 📅 Sort by Date, Company, and Priority
-- 🎨 Priority Badges
-- 💰 Salary Tracking
-- 📍 Location Tracking
-- 🔗 Job URL Support
-- 📝 Notes Section
-- 📊 Live Statistics Bar
-- 🖱 Drag & Drop (Desktop)
-- 📱 Touch Drag & Drop (Mobile)
-- 🔔 Toast Notifications
-- 💾 Data Persistence using Local Storage
-- 📱 Fully Responsive Design
+- 📋 **Kanban Board View** — visualize jobs across 5 stages
+- 📊 **Table View** — view all applications in a structured table
+- 🔍 **Real-time Search & Filter** — search by company, role, or status
+- 🔃 **Sorting** — sort by date, company, or priority
+- ➕ **Add / Edit / Delete Jobs** — complete CRUD functionality
+- 👀 **View Job Details** — dedicated details modal
+- 💰 **Salary Tracking** — store salary or package information
+- 📍 **Location Tracking** — save job location
+- 🔗 **Job URL Support** — save application links
+- 📝 **Notes Section** — store interview notes and reminders
+- 🖱️ **Drag & Drop** — move jobs between stages on desktop
+- 📱 **Touch Drag & Drop** — mobile-friendly drag support
+- 🌙 **Dark / Light Mode Toggle** — switch themes with preference saved in localStorage
+- 🔔 **Toast Notifications** — instant feedback for user actions
+- 💾 **Auto Save** — data persists using localStorage
+- 📱 **Responsive Design** — optimized for desktop and mobile devices
 
 ---
 
