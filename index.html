@@ -3,22 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Job Board</title>
+  <title>Job Tracker</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 <div class="app">
- 
+
   <!-- Header -->
   <header>
     <div class="brand">
       <div class="brand-icon">💼</div>
-      <span class="brand-name">Job Board</span>
+      <span class="brand-name">Job Tracker</span>
     </div>
     <div class="stats" id="statsBar"></div>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <span class="theme-icon" id="themeIcon">🌙</span>
+      <span id="themeLabel">Dark</span>
+    </button>
   </header>
- 
+
   <!-- Toolbar -->
   <div class="toolbar">
     <div class="search-wrap">
@@ -68,12 +72,12 @@
       </button>
     </div>
   </div>
- 
+
   <!-- Board View -->
   <div class="board" id="boardView">
     <!-- Columns rendered by JS -->
   </div>
- 
+
   <!-- Table View -->
   <div class="table-wrap" id="tableView" style="display:none">
     <table id="jobTable">
@@ -95,9 +99,9 @@
       No jobs match your filters.
     </div>
   </div>
- 
+
 </div>
- 
+
 <!-- Add / Edit Modal -->
 <div class="overlay" id="formOverlay">
   <div class="modal">
@@ -165,7 +169,7 @@
     </div>
   </div>
 </div>
- 
+
 <!-- View Modal -->
 <div class="overlay" id="viewOverlay">
   <div class="modal">
@@ -181,12 +185,11 @@
     </div>
   </div>
 </div>
- 
+
 <!-- Toast notification -->
 <div class="toast" id="toast"></div>
- 
+
 <!-- JS loaded at the end so the DOM is ready -->
 <script src="app.js"></script>
 </body>
 </html>
- 
