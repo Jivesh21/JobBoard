@@ -27,8 +27,9 @@ https://hire-flow-one-weld.vercel.app/
 # 📸 Preview
 
 > Add screenshots here after deployment.
+<img width="1898" height="907" alt="image" src="https://github.com/user-attachments/assets/e3de44e8-e088-4aca-be62-9443d24f1a82" />
 
-```<img width="1898" height="907" alt="image" src="https://github.com/user-attachments/assets/e3de44e8-e088-4aca-be62-9443d24f1a82" />
+```
 
 
 
