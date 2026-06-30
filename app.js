@@ -465,6 +465,26 @@ function loadTheme() {
 }
 
 /* ── Page Switching ───────────────────────────────── */
+/* ── Mobile Sidebar Toggle ─────────────────────────── */
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+
+function closeSidebarOnMobile() {
+  if (window.innerWidth <= 768) closeSidebar();
+}
+
+// auto-close drawer if window is resized back to desktop width
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 768) closeSidebar();
+});
+
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
