@@ -19,7 +19,7 @@ A modern Job Application Tracker built using HTML, CSS and Vanilla JavaScript to
 > Add your deployed link here
 
 ```
-https://your-project-link.vercel.app
+https://hire-flow-one-weld.vercel.app/
 ```
 
 ---
@@ -28,12 +28,12 @@ https://your-project-link.vercel.app
 
 > Add screenshots here after deployment.
 
+```<img width="1898" height="907" alt="image" src="https://github.com/user-attachments/assets/e3de44e8-e088-4aca-be62-9443d24f1a82" />
+
+
+
 ```
-📷 Dashboard
-📷 Analytics
-📷 Job Board
-📷 Dark Mode
-```
+  <img width="1919" height="917" alt="image" src="https://github.com/user-attachments/assets/8e643770-7f27-4f57-a9fd-00fe2486123f" />
 
 ---
 
