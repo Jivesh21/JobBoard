@@ -24,22 +24,22 @@
     </div>
 
     <nav class="sidebar-nav">
-      <a class="nav-item" onclick="showPage('dashboard')" id="nav-dashboard">
+      <a class="nav-item" onclick="showPage('dashboard'); closeSidebarOnMobile();" id="nav-dashboard">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
       </a>
-      <a class="nav-item" onclick="showPage('jobs')" id="nav-jobs">
+      <a class="nav-item" onclick="showPage('jobs'); closeSidebarOnMobile();" id="nav-jobs">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
         Job Search
       </a>
-      <a class="nav-item active" onclick="showPage('analytics')" id="nav-analytics">
+      <a class="nav-item active" onclick="showPage('analytics'); closeSidebarOnMobile();" id="nav-analytics">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         Analytics
       </a>
     </nav>
 
     <div class="sidebar-bottom">
-      <button class="add-job-btn" onclick="openAdd()">
+      <button class="add-job-btn" onclick="openAdd(); closeSidebarOnMobile();">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
         Add New Job
       </button>
@@ -47,22 +47,28 @@
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
         <span id="themeLabel">Dark Mode</span>
       </a>
-      <a class="nav-item nav-settings" onclick="showPage('settings')" id="nav-settings">
+      <a class="nav-item nav-settings" onclick="showPage('settings'); closeSidebarOnMobile();" id="nav-settings">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         Settings
       </a>
-      <a class="nav-item nav-settings" onclick="showPage('support')" id="nav-support">
+      <a class="nav-item nav-settings" onclick="showPage('support'); closeSidebarOnMobile();" id="nav-support">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
         Support
       </a>
     </div>
   </aside>
 
+  <!-- Overlay — closes sidebar when tapped on mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
   <!-- ── MAIN ── -->
   <div class="main">
 
     <!-- Top Bar -->
     <div class="topbar">
+      <button class="hamburger-btn" id="hamburgerBtn" onclick="toggleSidebar()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
       <div class="search-wrap">
         <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <input type="text" id="searchInput" placeholder="Search applications..."/>
