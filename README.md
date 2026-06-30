@@ -16,7 +16,7 @@ A modern Job Application Tracker built using HTML, CSS and Vanilla JavaScript to
 
 ## 🚀 Live Demo
 
-> Add your deployed link here
+> 
 
 ```
 https://hire-flow-one-weld.vercel.app/
